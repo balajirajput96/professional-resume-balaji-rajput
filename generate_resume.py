@@ -2,6 +2,7 @@
 """
 Professional 2-Page Resume Generator for Balaji Dilipsingh Rajput
 Using ReportLab for modern, clean, professional PDF output.
+Improved: Enhanced summary, all connectors highlighted with emojis, added Label Reconciliation competency.
 """
 
 from reportlab.lib.pagesizes import A4
@@ -71,7 +72,7 @@ MARGIN = 15 * mm
     
     # Body text
     styles.add(ParagraphStyle(
-        name='BodyText',
+        name='ResumeBody',
         fontName='Helvetica',
         fontSize=9,
         textColor=DARK_GRAY,
@@ -82,7 +83,7 @@ MARGIN = 15 * mm
     
     # Bullet style
     styles.add(ParagraphStyle(
-        name='Bullet',
+        name='ResumeBullet',
         fontName='Helvetica',
         fontSize=9,
         textColor=DARK_GRAY,
@@ -93,7 +94,7 @@ MARGIN = 15 * mm
     
     # Small text
     styles.add(ParagraphStyle(
-        name='Small',
+        name='ResumeSmall',
         fontName='Helvetica',
         fontSize=8,
         textColor=DARK_GRAY,
@@ -103,7 +104,7 @@ MARGIN = 15 * mm
     
     # Project title
     styles.add(ParagraphStyle(
-        name='ProjectTitle',
+        name='ResumeProjectTitle',
         fontName='Helvetica-Bold',
         fontSize=9,
         textColor=PRIMARY_COLOR,
@@ -140,7 +141,7 @@ def build_resume():
     # === HEADER ===
     story.append(Paragraph('Balaji Dilipsingh Rajput', styles['ResumeName']))
     story.append(Paragraph('QA Officer | IPQA Officer | Pharmaceutical Quality Assurance', styles['ResumeTitle']))
-    contact = 'Vadodara, Gujarat 390010, India | +91 8780861044 | balajirajput966@gmail.com<br/>LinkedIn: linkedin.com/in/balaji-rajput-483a86194 | GitHub: github.com/balajirajput96'
+    contact = '📍 Vadodara, Gujarat 390010, India &nbsp;&nbsp;|&nbsp;&nbsp; 📞 +91 8780861044 &nbsp;&nbsp;|&nbsp;&nbsp; ✉ balajirajput966@gmail.com<br/>🔗 LinkedIn: linkedin.com/in/balaji-rajput-483a86194 &nbsp;&nbsp;|&nbsp;&nbsp; 🐙 GitHub: github.com/balajirajput96'
     story.append(Paragraph(contact, styles['Contact']))
     
     # Accent line
@@ -148,8 +149,8 @@ def build_resume():
     
     # === PROFESSIONAL SUMMARY ===
     story.append(Paragraph('PROFESSIONAL SUMMARY', styles['SectionHeader']))
-    summary = '''Results-driven QA professional with 2+ years of hands-on experience in pharmaceutical Quality Assurance at Elysium Pharmaceuticals Ltd., Vadodara. Proven expertise in GMP &amp; GDP compliance, SOP writing, CAPA implementation, deviation management, BMR/BPR review, change control, OOS investigation, and QMS documentation. Strong academic foundation in Biotechnology (Diploma, GTU) with laboratory proficiency in HPLC, PCR, and microbiology. Achieved zero critical observations during regulatory inspections. Immediately available for QA Executive, Documentation Officer, or Regulatory Affairs roles across the Gujarat pharmaceutical sector.'''
-    story.append(Paragraph(summary, styles['BodyText']))
+    summary = '''Results-driven QA professional with 2+ years of hands-on experience in pharmaceutical Quality Assurance at Elysium Pharmaceuticals Ltd., Vadodara. Expert in GMP/GDP compliance, SOP development, CAPA, deviation management, BMR/BPR review, and regulatory documentation (CDSCO/WHO-GMP/FDA) with zero critical observations. Strong Biotechnology background with lab proficiency in HPLC, PCR, microbiology. Immediately available for QA Executive or Regulatory Affairs roles in Gujarat pharma sector.'''
+    story.append(Paragraph(summary, styles['ResumeBody']))
     
     # === CORE COMPETENCIES ===
     story.append(Paragraph('CORE COMPETENCIES', styles['SectionHeader']))
@@ -160,7 +161,7 @@ def build_resume():
         '• Change Control Management',
         '• Internal GMP Audits &amp; Self-Inspection',
         '• Vendor Qualification &amp; Supplier Audit',
-        '• HPLC, PCR &amp; Spectrophotometry',
+        '• Label Reconciliation & Artwork Review',
     ]
     competencies_right = [
         '• CAPA &amp; Deviation Management',
@@ -174,8 +175,8 @@ def build_resume():
     comp_data = []
     for i in range(len(competencies_left)):
         comp_data.append([
-            Paragraph(competencies_left[i], styles['Small']),
-            Paragraph(competencies_right[i], styles['Small'])
+            Paragraph(competencies_left[i], styles['ResumeSmall']),
+            Paragraph(competencies_right[i], styles['ResumeSmall'])
         ])
     
     comp_table = Table(comp_data, colWidths=[90*mm, 90*mm])
@@ -191,8 +192,8 @@ def build_resume():
     
     # === PROFESSIONAL EXPERIENCE ===
     story.append(Paragraph('PROFESSIONAL EXPERIENCE', styles['SectionHeader']))
-    story.append(Paragraph('<b>QA Officer / IPQA Officer</b> | Elysium Pharmaceuticals Ltd., Dabhasa, Vadodara, Gujarat | <i>Mar 2024 – Mar 2026</i>', styles['Small']))
-    story.append(Paragraph('Production / Quality Assurance Department | Employee Code: 16836', styles['Small']))
+    story.append(Paragraph('<b>QA Officer / IPQA Officer</b> | Elysium Pharmaceuticals Ltd., Dabhasa, Vadodara, Gujarat | <i>Mar 2024 – Mar 2026</i>', styles['ResumeSmall']))
+    story.append(Paragraph('Production / Quality Assurance Department | Employee Code: 16836', styles['ResumeSmall']))
     story.append(Spacer(1, 1*mm))
     
     exp_bullets = [
@@ -206,13 +207,13 @@ def build_resume():
         'Coordinated GMP training schedules and maintained records for floor staff, ensuring <b>100% training compliance</b>. Supported OOS/OOT investigations, APQR data compilation, stability programme documentation, and market complaint reports per strict GDP standards.',
     ]
     for bullet in exp_bullets:
-        story.append(Paragraph('• ' + bullet, styles['Bullet']))
+        story.append(Paragraph('• ' + bullet, styles['ResumeBullet']))
     
     # === EDUCATION ===
     story.append(Paragraph('EDUCATION', styles['SectionHeader']))
-    story.append(Paragraph('<b>Diploma in Biotechnology</b> | Parul Institute of Technology &amp; Engineering, GTU, Vadodara | 2021 – 2025', styles['Small']))
-    story.append(Paragraph('CGPA: 6.7/10 | Dean’s List 2024–25 | Best Research Project Award 2024', styles['Small']))
-    story.append(Paragraph('Key Subjects: Molecular Biology, Biochemistry, Microbiology, Bioprocess Technology, Immunology, Fermentation Technology', styles['Small']))
+    story.append(Paragraph('<b>Diploma in Biotechnology</b> | Parul Institute of Technology &amp; Engineering, GTU, Vadodara | 2021 – 2025', styles['ResumeSmall']))
+    story.append(Paragraph('CGPA: 6.7/10 | Dean’s List 2024–25 | Best Research Project Award 2024', styles['ResumeSmall']))
+    story.append(Paragraph('Key Subjects: Molecular Biology, Biochemistry, Microbiology, Bioprocess Technology, Immunology, Fermentation Technology', styles['ResumeSmall']))
     
     # PAGE BREAK
     story.append(PageBreak())
@@ -227,8 +228,8 @@ def build_resume():
         ('<b>2023 | Biogenic Synthesis of Silver Nanoparticles (AgNPs)</b>', 'Synthesised AgNPs using Pseudomonas spp.; confirmed antimicrobial efficacy via spectrophotometry and zone-of-inhibition assays. [Microbiology, UV-Vis Spectrophotometry]'),
     ]
     for title, desc in projects:
-        story.append(Paragraph(title, styles['ProjectTitle']))
-        story.append(Paragraph(desc, styles['Small']))
+        story.append(Paragraph(title, styles['ResumeProjectTitle']))
+        story.append(Paragraph(desc, styles['ResumeSmall']))
         story.append(Spacer(1, 1.5*mm))
     
     # === CERTIFICATIONS ===
@@ -248,8 +249,8 @@ def build_resume():
     cert_data = []
     for i in range(len(certs_left)):
         cert_data.append([
-            Paragraph(certs_left[i], styles['Small']),
-            Paragraph(certs_right[i], styles['Small'])
+            Paragraph(certs_left[i], styles['ResumeSmall']),
+            Paragraph(certs_right[i], styles['ResumeSmall'])
         ])
     cert_table = Table(cert_data, colWidths=[90*mm, 90*mm])
     cert_table.setStyle(TableStyle([
@@ -269,30 +270,30 @@ def build_resume():
         '• <b>8 novel AMR gene variants</b> identified; <b>40% reduction</b> in bioinformatics curation time; Dean’s List for Academic Excellence 2024–2025.',
     ]
     for ach in achievements:
-        story.append(Paragraph(ach, styles['Bullet']))
+        story.append(Paragraph(ach, styles['ResumeBullet']))
     
     # === TECHNICAL SKILLS ===
     story.append(Paragraph('TECHNICAL SKILLS', styles['SectionHeader']))
     
     skills = [
-        ('<b>QA / Regulatory:</b>', 'GMP, GDP, GLP, SOP, CAPA, BMR/BPR, Change Control, OOS/OOT, QMS, 21 CFR, ICH, CDSCO, WHO-GMP'),
+        ('<b>QA / Regulatory:</b>', 'GMP, GDP, GLP, SOP, CAPA, BMR/BPR, Change Control, OOS/OOT, QMS, 21 CFR Part 11, ICH, CDSCO, WHO-GMP'),
         ('<b>Laboratory:</b>', 'PCR, RT-PCR, HPLC, Spectrophotometry, Gel Electrophoresis, Microbial Culture, Sterility Testing, MLT'),
         ('<b>Bioinformatics:</b>', 'Python (Biopython, Pandas, NumPy), R (Bioconductor), BLAST, ClustalW, AutoDock Vina, SWISS-MODEL, PyMOL'),
         ('<b>Software:</b>', 'MS Office (Advanced), SAP (Basics), TrackWise QMS, SPSS, MATLAB'),
     ]
     for label, content in skills:
-        story.append(Paragraph(f'{label} {content}', styles['Small']))
+        story.append(Paragraph(f'{label} {content}', styles['ResumeSmall']))
         story.append(Spacer(1, 1*mm))
     
     # === PERSONAL DETAILS ===
     story.append(Paragraph('PERSONAL DETAILS &amp; DECLARATION', styles['SectionHeader']))
     personal = 'D.O.B.: 20 June 2001 | Marital Status: Single | Languages: English, Hindi (Fluent), Gujarati (Native) | Availability: Immediate'
-    story.append(Paragraph(personal, styles['Small']))
+    story.append(Paragraph(personal, styles['ResumeSmall']))
     story.append(Spacer(1, 2*mm))
     declaration = 'I hereby declare that all information furnished above is true and accurate to the best of my knowledge.'
-    story.append(Paragraph(declaration, styles['Small']))
+    story.append(Paragraph(declaration, styles['ResumeSmall']))
     story.append(Spacer(1, 4*mm))
-    story.append(Paragraph('<b>Balaji Dilipsingh Rajput</b>', styles['Small']))
+    story.append(Paragraph('<b>Balaji Dilipsingh Rajput</b>', styles['ResumeSmall']))
     
     # Build PDF
     doc.build(story, onFirstPage=add_header_footer, onLaterPages=add_header_footer)
