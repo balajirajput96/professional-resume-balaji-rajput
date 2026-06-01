@@ -1,1 +1,1 @@
-Professional resume generator v1 - fixed all rendering, clean connectors, Pharmaceutical QA title, full professional look. All processes followed: GitHub coding, improvement, 2-page PDF.
+Updated code with clickable Google Drive certificate links section added. All errors fixed, professional look, all connectors, full coding on GitHub.
