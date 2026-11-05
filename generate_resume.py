@@ -3,6 +3,7 @@
 Professional Resume Generator for Balaji Dilipsingh Rajput
 Features:
 - Dual profile support: 'fresher' (default) and 'experienced'
+- Fresher profile updated with 2-month Tablet Manufacturing & QA/QC Industrial Training
 - ATS-compliant single/multi-section ReportLab flowable architecture
 - Clean modern typography with zero missing-glyph/emoji fallback bugs
 - Interactive PDF annotations: clickable phone, email, LinkedIn, and GitHub links
@@ -104,29 +105,30 @@ def get_fresher_data() -> ResumeData:
         summary_heading="Career Objective & Professional Summary",
         summary=(
             "Goal-oriented and detail-focused Biotechnology graduate with demonstrated academic excellence "
-            "and foundational competence in cGMP/GDP compliance, wet-lab analytical techniques, and computational pipelines. "
+            "and practical foundational training in pharmaceutical manufacturing, analytical QC, and cGMP compliance. "
             "Recipient of the <b>Best Research Project Award (2024)</b> and <b>Dean's List</b> distinction. Practical exposure "
-            "encompasses genomic data workflows (Biotecnika), GLP microbiology & PCR testing (Gujarat Biotech Innovations), "
-            "and industrial exposure in Oral Solid Dosage manufacturing. Proactive learner seeking an entry-level position as "
-            "<b>Quality Assurance (QA) Trainee</b>, <b>IPQA Officer</b>, or <b>Quality Control (QC) Chemist</b> in Gujarat's pharmaceutical sector. "
+            "includes <b>2-Month Industrial Training in Oral Solid Dosage (Tablets) & QA/QC</b> at Elysium Pharmaceuticals Ltd., "
+            "genomic data analysis workflows at Biotecnika, and GLP microbiology assays at Gujarat Biotech Innovations. "
+            "Eager to contribute rigorous analytical skills and standard-operating-procedure discipline as an entry-level "
+            "<b>Quality Assurance (QA) Trainee</b>, <b>IPQA Officer</b>, or <b>Quality Control (QC) Chemist</b>. "
             "Available to join immediately."
         ),
         competencies_heading="Core Competencies & Foundational Knowledge",
         competencies_left=[
             "• cGMP, GDP & GLP Principles",
-            "• SOP Drafting & Document Lifecycle",
-            "• In-Process Quality Checks (IPQA)",
+            "• Tablet Manufacturing & IPQA Checks",
+            "• Quality Control (QC) Wet Analysis",
             "• Good Documentation Practices (ALCOA+)",
-            "• 21 CFR Part 11 & Schedule M Awareness",
-            "• Label Reconciliation & Inspection",
+            "• Dissolution, Friability & Hardness Testing",
+            "• SOP Drafting & Document Lifecycle",
         ],
         competencies_right=[
-            "• Deviation & CAPA Basics",
-            "• BMR / BPR Review Protocols",
-            "• HPLC & Spectrophotometry Concepts",
+            "• Analytical Instrumentation (HPLC, UV-Vis)",
             "• Microbial Testing & Aseptic Culture",
+            "• BMR / BPR Review Fundamentals",
+            "• Deviation & CAPA Problem-Solving",
             "• Quality Management System (QMS)",
-            "• Root Cause Analysis (5-Why, Fishbone)",
+            "• 21 CFR Part 11 & Schedule M Awareness",
         ],
         education=[
             {
@@ -140,13 +142,13 @@ def get_fresher_data() -> ResumeData:
         experience_heading="Industrial Training & Internship Experience",
         experience=[
             {
-                "role": "Industrial QA Trainee / Apprentice",
+                "role": "Industrial Trainee — QA & QC (Oral Solid Dosage - Tablets)",
                 "company": "Elysium Pharmaceuticals Ltd., Dabhasa, Vadodara",
-                "duration": "Mar 2024 – Mar 2026",
+                "duration": "2 Months (Industrial Training)",
                 "bullets": [
-                    "Received hands-on industrial training in Oral Solid Dosage (tablets) manufacturing under strict cGMP and Schedule M standards.",
-                    "Assisted IPQA officers in line clearance, physical parameter checks (hardness, friability, disintegration time), and BMR/BPR log verification.",
-                    "Observed and supported SOP authoring, deviation tracking, and preparation of documentation packages for CDSCO/WHO-GMP audit readiness.",
+                    "Completed 2-month industrial training focused on Oral Solid Dosage (tablet manufacturing) and Quality Control (QC) & Quality Assurance (QA) workflows under cGMP and Schedule M guidelines.",
+                    "Gained practical QC laboratory exposure: observed raw material and finished product testing, dissolution and disintegration profiling, UV-Vis spectrophotometry assays, and GLP reagent standardization.",
+                    "Assisted IPQA officers in line clearance, physical in-process parameter checks (weight variation, thickness, hardness, friability), and BMR/BPR log verification.",
                 ],
             },
             {
@@ -209,8 +211,8 @@ def get_fresher_data() -> ResumeData:
                 "cGMP, GDP, GLP, Schedule M, SOP Drafting, BMR / BPR Verification, Deviation & CAPA Basics, Change Control Awareness, Data Integrity (ALCOA+), 21 CFR Part 11, CDSCO & WHO-GMP Guidelines.",
             ),
             (
-                "Laboratory & Analytical:",
-                "HPLC (Fundamentals), PCR / RT-PCR, UV-Vis Spectrophotometry, Agarose Gel Electrophoresis, Microbial & Aseptic Culture, Sterility Testing, Disintegration & Friability Testing, Autoclave, LAF.",
+                "Laboratory & Analytical (QC/QA):",
+                "HPLC (Fundamentals), UV-Vis Spectrophotometry, Dissolution & Disintegration Testing, Friability, Hardness, PCR / RT-PCR, Agarose Gel Electrophoresis, Microbial & Aseptic Culture, Sterility Testing, Autoclave, LAF.",
             ),
             (
                 "Bioinformatics & Computation:",
@@ -421,7 +423,7 @@ class ProfessionalCanvas(canvas.Canvas):
             self.drawRightString(
                 page_width - margin,
                 page_height - 9 * mm,
-                "Curriculum Vitae | Pharmaceutical QA/QC & Biotechnology",
+                "Curriculum Vitae | Fresher (Biotechnology & Pharma QA/QC)",
             )
 
         # Bottom Running Footer (All Pages)
@@ -725,7 +727,7 @@ class ResumeBuilder:
             story.append(Spacer(1, 1.5 * mm))
 
         # -------------------------------------------------------------------
-        # EXPERIENCE / INTERNSHIPS
+        # INDUSTRIAL TRAINING & INTERNSHIPS
         # -------------------------------------------------------------------
         story.extend(self._create_section_heading(self.data.experience_heading))
         for exp in self.data.experience:
