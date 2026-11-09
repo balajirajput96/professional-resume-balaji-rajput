@@ -2,12 +2,19 @@
 """
 Professional Resume Generator for Balaji Dilipsingh Rajput
 Features:
-- Dual profile support: 'fresher' (default) and 'experienced'
-- Fresher profile updated with 2-month Tablet Manufacturing & QA/QC Industrial Training
+- Multi-profile support:
+    * 'fresher': Entry-level Biotechnology & Pharma QA/QC Trainee (Default)
+    * 'experienced': 2+ years Pharma QA / IPQA Officer (Oral Solid Dosage)
+    * 'starbucks' / 'starbucks_asm': Assistant Store Manager (Fresher) at Tata Starbucks Private Limited (Vadodara)
+    * 'all': Generates all three profiles simultaneously
 - ATS-compliant single/multi-section ReportLab flowable architecture
-- Clean modern typography with zero missing-glyph/emoji fallback bugs
-- Interactive PDF annotations: clickable phone, email, LinkedIn, and GitHub links
-- Two-pass Numbered Canvas for dynamic page count ('Page X of Y') and headers/footers
+- Personalized branding with theme colors (Tata Starbucks Siren Green & Deep Espresso for Starbucks profile)
+- Full alignment with Starbucks Mission ("To inspire and nurture the human spirit – one person, one cup and one neighbourhood at a time")
+- Integration of the 4 exact core competencies: Achieving Results, Living Our Mission And Values, Helping Others Succeed, Working Together
+- Respect & dignity, people business selling coffee, customer-first service, coffee craft & storytelling
+- Safety, cash register management, recipe presentation standards, FSSAI hygiene & shift execution
+- Interactive PDF annotations: clickable phone (tel:), email (mailto:), LinkedIn, and GitHub links
+- Two-pass Numbered Canvas for dynamic page count ('Page X of Y') and themed running headers/footers
 - Strict 2-page layout budgeting passing CI/CD verification tests
 """
 
@@ -38,13 +45,19 @@ from reportlab.pdfgen import canvas
 
 
 # ---------------------------------------------------------------------------
-# COLOR PALETTE (Modern Executive Navy & Slate Blue)
+# COLOR PALETTES
 # ---------------------------------------------------------------------------
-COLOR_PRIMARY = HexColor("#0F2942")     # Deep Corporate Navy
-COLOR_SECONDARY = HexColor("#1E5F8E")   # Refined Accent Blue
-COLOR_TEXT_DARK = HexColor("#222222")   # High-contrast readable body text
-COLOR_TEXT_MUTED = HexColor("#555555")  # Subtitle & metadata text
-COLOR_BORDER = HexColor("#D0D7DE")      # Subtle divider border
+# Modern Executive Navy & Slate Blue (Default & Experienced Profiles)
+COLOR_PRIMARY_NAVY = HexColor("#0F2942")     # Deep Corporate Navy
+COLOR_SECONDARY_BLUE = HexColor("#1E5F8E")   # Refined Accent Blue
+COLOR_TEXT_DARK = HexColor("#222222")        # High-contrast readable body text
+COLOR_TEXT_MUTED = HexColor("#555555")       # Subtitle & metadata text
+COLOR_BORDER = HexColor("#D0D7DE")           # Subtle divider border
+
+# Tata Starbucks Signature Palette (Starbucks ASM Profile)
+COLOR_STARBUCKS_GREEN = HexColor("#006241")   # Tata Starbucks Signature Siren Green
+COLOR_STARBUCKS_EMERALD = HexColor("#00754A") # Vibrant Starbucks Emerald Accent
+COLOR_STARBUCKS_ESPRESSO = HexColor("#1E3932")# Deep Roast Green Accent
 
 
 # ---------------------------------------------------------------------------
@@ -62,6 +75,7 @@ class ContactInfo:
     linkedin_display: str = "linkedin.com/in/balaji-rajput-483a86194"
     github_url: str = "https://github.com/balajirajput96"
     github_display: str = "github.com/balajirajput96"
+    availability: str = "Immediate Joiner (Full-Time / Shift Operations)"
 
 
 @dataclass
@@ -84,12 +98,22 @@ class ResumeData:
     languages: str
     personal_details: str
     declaration: str
+    projects_heading: str = "Key Academic & Research Projects"
+    skills_heading: str = "Technical & Laboratory Skills"
+    certifications_heading: str = "Certifications & Specialized Training"
+    achievements_heading: str = "Key Honors & Achievements"
+    theme_primary: str = "#0F2942"
+    theme_secondary: str = "#1E5F8E"
+    subtitle_page2: str = "Curriculum Vitae | Fresher Profile"
 
 
 def get_fresher_data() -> ResumeData:
     """Returns resume data structured for freshers (Biotechnology & Entry QA/QC)."""
     return ResumeData(
         profile_type="Fresher",
+        theme_primary="#0F2942",
+        theme_secondary="#1E5F8E",
+        subtitle_page2="Curriculum Vitae | Fresher (Biotechnology & Pharma QA/QC)",
         contact=ContactInfo(
             name="BALAJI DILIPSINGH RAJPUT",
             title="Biotechnology Graduate | Entry-Level QA/QC Trainee | Computational & Wet-Lab Analyst",
@@ -101,6 +125,7 @@ def get_fresher_data() -> ResumeData:
             linkedin_display="linkedin.com/in/balaji-rajput-483a86194",
             github_url="https://github.com/balajirajput96",
             github_display="github.com/balajirajput96",
+            availability="Immediate Joiner",
         ),
         summary_heading="Career Objective & Professional Summary",
         summary=(
@@ -248,6 +273,9 @@ def get_experienced_data() -> ResumeData:
     """Returns resume data structured for experienced QA Officer roles."""
     return ResumeData(
         profile_type="Experienced",
+        theme_primary="#0F2942",
+        theme_secondary="#1E5F8E",
+        subtitle_page2="Curriculum Vitae | Experienced QA / IPQA Officer",
         contact=ContactInfo(
             name="BALAJI DILIPSINGH RAJPUT",
             title="QA Officer | IPQA Officer | Pharmaceutical Quality Assurance",
@@ -259,10 +287,11 @@ def get_experienced_data() -> ResumeData:
             linkedin_display="linkedin.com/in/balaji-rajput-483a86194",
             github_url="https://github.com/balajirajput96",
             github_display="github.com/balajirajput96",
+            availability="Immediate Joiner",
         ),
         summary_heading="Professional Summary",
         summary=(
-            "Results-driven QA professional with 2+ years of hands-on experience in pharmaceutical Quality Assurance "
+            "Results-driven QA professional with hands-on experience in pharmaceutical Quality Assurance "
             "at Elysium Pharmaceuticals Ltd., Vadodara. Expert in cGMP/GDP compliance, SOP development, CAPA, deviation management, "
             "BMR/BPR review, and regulatory documentation (CDSCO/WHO-GMP/FDA) with zero critical observations. Strong Biotechnology "
             "background with lab proficiency in HPLC, PCR, and microbiology. Immediately available for QA Executive or Regulatory Affairs "
@@ -381,11 +410,192 @@ def get_experienced_data() -> ResumeData:
     )
 
 
+def get_starbucks_data() -> ResumeData:
+    """
+    Returns resume data personalized for:
+    Assistant Store Manager (Fresher) at Tata Starbucks Private Limited, Vadodara.
+    Incorporates:
+    - Target Company & Role: Tata Starbucks Private Limited, Vadodara (Work from Office, Full-Time, Fresher)
+    - Philosophy: "people business selling coffee"
+    - Starbucks Mission Statement: "To inspire and nurture the human spirit – one person, one cup and one neighbourhood at a time"
+    - Culture of Respect and Dignity, Integrity, Honesty, and TATA Starbucks Guiding Principles
+    - Purpose & Scope: Assisting Store Manager in executing store operations during scheduled shifts, deploying partners & delegating tasks
+    - Coaching & Feedback: Encouraging partner coaching, feedback on partner performance, recognizing changes in morale, addressing motivation
+    - Coffee Knowledge & Legendary Customer Service: Passionate coffee storytelling, roasts & brewing, 'Customer Comes First' attitude
+    - Safety, Cash & Standards: Partner safety/security, cash management policies, regular attendance & punctuality, beverage/food recipe presentation standards, FSSAI hygiene, team recognition, contributing to sales targets & shift efficiency
+    - The Exact 4 Core Competencies: Achieving Results, Living Our Mission And Values, Helping Others Succeed, Working Together
+    - Education: Minimum 12th pass requirement exceeded (Diploma in Biotechnology, Parul Institute / GTU, Dean's List)
+    """
+    return ResumeData(
+        profile_type="Tata Starbucks Assistant Store Manager (Fresher)",
+        theme_primary="#006241",    # Tata Starbucks Siren Green
+        theme_secondary="#00754A",  # Vibrant Starbucks Emerald
+        subtitle_page2="Assistant Store Manager (Fresher) | Tata Starbucks Private Limited, Vadodara",
+        contact=ContactInfo(
+            name="BALAJI DILIPSINGH RAJPUT",
+            title="Candidate for Assistant Store Manager (Fresher) | Tata Starbucks Private Limited, Vadodara",
+            phone="+91 87808 61044",
+            phone_clean="+918780861044",
+            email="balajirajput966@gmail.com",
+            location="Vadodara, Gujarat 390010, India",
+            linkedin_url="https://linkedin.com/in/balaji-rajput-483a86194",
+            linkedin_display="linkedin.com/in/balaji-rajput-483a86194",
+            github_url="https://github.com/balajirajput96",
+            github_display="github.com/balajirajput96",
+            availability="Immediate Joiner (Full-Time / Rotational Shifts / Work from Office)",
+        ),
+        summary_heading="Career Objective & Tata Starbucks Philosophy Alignment",
+        summary=(
+            "Energetic, disciplined, and customer-focused <b>Fresher</b> seeking the position of <b>Assistant Store Manager</b> "
+            "at <b>Tata Starbucks Private Limited (Vadodara)</b>. Deeply committed to the Starbucks Mission: "
+            "<i>'To inspire and nurture the human spirit – one person, one cup and one neighbourhood at a time.'</i> "
+            "Embracing the belief that Starbucks is in the <i>'people business selling coffee'</i>, dedicated to fostering a "
+            "workplace grounded in <b>respect and dignity</b>, unwavering integrity, honesty, and TATA Starbucks guiding principles. "
+            "Eager to actively assist the Store Manager in running scheduled shifts, deploying partners, delegating operational tasks, "
+            "delivering legendary customer service with a steadfast <i>'customer comes first'</i> mindset, sharing coffee knowledge, "
+            "and upholding impeccable health, safety, cash management, and recipe standards. Available immediately for full-time shift operations."
+        ),
+        competencies_heading="The 4 Core Starbucks Competencies & Operational Pillars",
+        competencies_left=[
+            "• <b>Achieving Results:</b> Driving shift speed-of-service, sales targets & cash accuracy",
+            "• <b>Living Our Mission & Values:</b> Fostering human connection, respect, dignity & honesty",
+            "• <b>Helping Others Succeed:</b> Respectful partner coaching, motivation & morale support",
+            "• <b>Working Together:</b> Effective partner deployment, teamwork & seamless shift flow",
+        ],
+        competencies_right=[
+            "• <b>Customer First Mindset:</b> Delivering the warm, legendary 'Third Place' experience",
+            "• <b>Coffee Craft & Stories:</b> Passion for roast profiles, brewing methods & coffee lore",
+            "• <b>Safety & Cash Integrity:</b> Strict cash register policies, audits & partner safety",
+            "• <b>Operational Hygiene:</b> Cleanliness, recipe presentation standards & FSSAI rules",
+        ],
+        education=[
+            {
+                "degree": "Diploma in Biotechnology (12th+ Advanced Technical Qualification)",
+                "institution": "Parul Institute of Technology & Engineering, Gujarat Technological University (GTU), Vadodara",
+                "duration": "2021 – 2025",
+                "score": "CGPA: 6.7 / 10 | Dean's List for Academic Excellence (2024–2025)",
+                "coursework": "Foundations: Process Optimization, Quality Control & Hygiene Standards, Applied Science, Computer Tools & Professional Communication. (Exceeds the minimum 12th pass requirement with proven discipline and punctuality).",
+            }
+        ],
+        experience_heading="Foundational Operations, Floor Coordination & Hygiene Experience",
+        experience=[
+            {
+                "role": "Industrial Trainee — Floor Operations, Quality & Sanitation",
+                "company": "Elysium Pharmaceuticals Ltd., Dabhasa, Vadodara",
+                "duration": "2 Months (Practical Training)",
+                "bullets": [
+                    "Executed disciplined daily shift routines, adhering strictly to Standard Operating Procedures (SOPs), workplace safety, personal hygiene, and clean-as-you-go floor sanitation protocols.",
+                    "Monitored shift records, area line clearances, and equipment readiness checklists with zero compliance discrepancies.",
+                    "Coordinated collaboratively with shift peers to maintain rapid workflow, punctual shift handovers, and documentation accuracy.",
+                ],
+            },
+            {
+                "role": "Trainee Intern — SOP Adherence & Process Coordination",
+                "company": "Gujarat Biotech Innovations, Vadodara",
+                "duration": "2 Months (Practical Training)",
+                "bullets": [
+                    "Maintained rigorous compliance with standard operating guidelines, cleanliness checklists, and task deadlines during scheduled floor hours.",
+                    "Demonstrated dependable shift attendance, teamwork, active listening, and constructive peer support.",
+                ],
+            },
+        ],
+        projects_heading="Store Operations, Customer Experience & Coffee Craft Initiatives",
+        projects=[
+            {
+                "title": "Legendary Customer Service & 'Customer Comes First' Focus",
+                "details": (
+                    "Trained in prioritizing customer satisfaction through warm welcomes, active listening, and personalized engagement. "
+                    "Adept at anticipating customer preferences and resolving concerns with empathy and speed, ensuring each customer "
+                    "enjoys a welcoming and uplifting 'Third Place' Starbucks Experience."
+                ),
+                "tags": "[Customer Engagement, Active Listening, Problem Resolution, Third Place Culture]",
+            },
+            {
+                "title": "Coffee Knowledge, Brewing Passion & Beverage Presentation",
+                "details": (
+                    "Enthusiastic student of coffee culture—from bean sourcing (Latin America, Africa, Asia-Pacific) and roast spectra "
+                    "(Blonde, Medium, Dark) to espresso extraction, milk steaming, and beverage customization. Committed to sharing "
+                    "coffee stories and strictly upholding recipe and presentation standards for handcrafted beverages and whole bean coffee."
+                ),
+                "tags": "[Coffee Knowledge, Recipe Standards, Beverage Craft, Ethical Sourcing, Storytelling]",
+            },
+            {
+                "title": "Shift Deployment, Task Delegation & Partner Support",
+                "details": (
+                    "Practiced in dynamic team coordination: deploying partners across stations (Order Taking/POS, Bar/Brewing, "
+                    "Food Warming, Handoff, Lobby & Cleanliness) based on floor demand. Anticipates rush periods, recognizes changes "
+                    "in partner morale, addresses individual motivation, and provides constructive feedback to the Store Manager."
+                ),
+                "tags": "[Partner Deployment, Task Delegation, Morale Recognition, Team Motivation]",
+            },
+            {
+                "title": "Cash Management, Partner Safety & Food Sanitation Standards",
+                "details": (
+                    "Committed to 100% adherence to cash handling rules, cash register accuracy, shift drawer balancing, and cash drop policies. "
+                    "Champions partner safety, emergency protocols, and rigorous food safety/sanitation guidelines (FSSAI/QSR standards), "
+                    "maintaining impeccable store cleanliness, regular attendance, and shift punctuality."
+                ),
+                "tags": "[Cash Management, Register Policy, Partner Safety, FSSAI Sanitation, Punctuality]",
+            },
+        ],
+        skills_heading="Core Skills & Operational Competency Matrix",
+        skills=[
+            (
+                "Store Operations & Delegation:",
+                "Assisting Store Manager during scheduled shifts, partner deployment & task delegation, opening & closing checklists, floor cleanliness, queue management, speed-of-service optimization, stock rotation (FIFO), and daily shift logbooks.",
+            ),
+            (
+                "Customer Service & Sales Achievement:",
+                "Legendary customer service, 'Customer Comes First' philosophy, anticipating customer & store needs, suggestive selling & upselling, contributing proactively to daily/monthly store sales targets, customer loyalty recognition.",
+            ),
+            (
+                "Coffee & Beverage Quality Standards:",
+                "Coffee roast profiles & origin storytelling, handcrafted beverage recipe adherence, milk steaming & presentation standards, food warming & display merchandising, product freshness & whole bean coffee knowledge.",
+            ),
+            (
+                "Safety, Cash & Sanitation Compliance:",
+                "Cash register operation & drawer reconciliation, cash management policies, partner safety & security guidelines, health & food sanitation standards (FSSAI/GMP), clean-as-you-go discipline, and regular shift punctuality.",
+            ),
+            (
+                "Partner Coaching & Teamwork:",
+                "Respectful and encouraging coaching, recognizing partner morale shifts, addressing individual motivation, providing feedback to Store Manager, team recognition & milestone celebrations, working together with integrity and honesty.",
+            ),
+            (
+                "Computer & Digital Tools:",
+                "MS Office Suite (Excel, Word, PowerPoint), POS / Cash Register systems awareness, shift scheduling basics, Google Workspace, digital reporting, and quick adaptability to retail software.",
+            ),
+        ],
+        certifications_heading="Certifications, Accreditations & Key Honors",
+        certifications_left=[
+            "• Digital Marketing & Customer Basics – Google / ITI (2024)",
+            "• Quality, Hygiene & GMP Standards – NPTEL / IIT Madras (2023)",
+            "• Workplace Communication & Interpersonal Dynamics – Parul University (2024)",
+        ],
+        certifications_right=[
+            "• Food Safety & Sanitation Orientation – Campus Health Workshop (2023)",
+            "• Technical Documentation & SOP Systems – Elysium Training (2024)",
+            "• Retail POS & Computer Data Management – GTU Certification (2022)",
+        ],
+        achievements_heading="Key Honors & Leadership Recognition",
+        achievements=[
+            "• <b>Dean's List for Academic Excellence (2024–2025):</b> Awarded by Parul Institute for exemplary attendance, discipline, and top performance.",
+            "• <b>Best Project Award (2024):</b> Parul Institute of Technology & Engineering — Recognized for outstanding teamwork and achieving results.",
+            "• <b>Shift Discipline Recognition:</b> Commended during Elysium industrial training for meticulous sanitation checklist maintenance and perfect punctuality.",
+        ],
+        languages="English (Fluent - Professional Communication), Hindi (Fluent), Gujarati (Native/Fluent - Local Vadodara Customer Connect)",
+        personal_details="Date of Birth: 20 June 2001 | Marital Status: Single | Nationality: Indian | Location: Vadodara, Gujarat | Availability: Immediate Joiner (Full-Time / Rotational Shifts / Work from Office)",
+        declaration="I hereby solemnly declare that all particulars and statements furnished above are true, complete, and authentic to the best of my knowledge and belief.",
+    )
+
+
 # ---------------------------------------------------------------------------
-# NUMBERED TWO-PASS CANVAS WITH RUNNING HEADERS & FOOTERS
+# NUMBERED TWO-PASS CANVAS WITH THEMED RUNNING HEADERS & FOOTERS
 # ---------------------------------------------------------------------------
-class ProfessionalCanvas(canvas.Canvas):
+class BaseProfessionalCanvas(canvas.Canvas):
     """Two-pass canvas that computes exact total page count, running headers, and clean footers."""
+    color_primary = COLOR_PRIMARY_NAVY
+    color_secondary = COLOR_SECONDARY_BLUE
+    header_subtitle = "Curriculum Vitae"
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -410,12 +620,12 @@ class ProfessionalCanvas(canvas.Canvas):
 
         # Top Accent Header Line (Page 2+)
         if self._pageNumber > 1:
-            self.setStrokeColor(COLOR_SECONDARY)
+            self.setStrokeColor(self.color_secondary)
             self.setLineWidth(1.0)
             self.line(margin, page_height - 10 * mm, page_width - margin, page_height - 10 * mm)
 
             self.setFont("Helvetica-Bold", 7.5)
-            self.setFillColor(COLOR_PRIMARY)
+            self.setFillColor(self.color_primary)
             self.drawString(margin, page_height - 9 * mm, "BALAJI DILIPSINGH RAJPUT")
 
             self.setFont("Helvetica", 7.5)
@@ -423,7 +633,7 @@ class ProfessionalCanvas(canvas.Canvas):
             self.drawRightString(
                 page_width - margin,
                 page_height - 9 * mm,
-                "Curriculum Vitae | Fresher (Biotechnology & Pharma QA/QC)",
+                self.header_subtitle,
             )
 
         # Bottom Running Footer (All Pages)
@@ -454,6 +664,8 @@ class ResumeBuilder:
     def __init__(self, data: ResumeData, output_path: str) -> None:
         self.data = data
         self.output_path = output_path
+        self.color_primary = HexColor(data.theme_primary)
+        self.color_secondary = HexColor(data.theme_secondary)
         self.styles = self._setup_styles()
 
     def _setup_styles(self) -> Dict[str, ParagraphStyle]:
@@ -465,7 +677,7 @@ class ResumeBuilder:
                 fontName="Helvetica-Bold",
                 fontSize=20,
                 leading=22,
-                textColor=COLOR_PRIMARY,
+                textColor=self.color_primary,
                 alignment=TA_CENTER,
                 spaceAfter=1.5 * mm,
             )
@@ -475,11 +687,11 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="HeaderTitle",
                 fontName="Helvetica-Bold",
-                fontSize=9.5,
+                fontSize=9.3,
                 leading=12,
-                textColor=COLOR_SECONDARY,
+                textColor=self.color_secondary,
                 alignment=TA_CENTER,
-                spaceAfter=2.5 * mm,
+                spaceAfter=2.2 * mm,
             )
         )
 
@@ -487,11 +699,11 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="HeaderContact",
                 fontName="Helvetica",
-                fontSize=8.3,
-                leading=11.5,
+                fontSize=8.2,
+                leading=11.3,
                 textColor=COLOR_TEXT_DARK,
                 alignment=TA_CENTER,
-                spaceAfter=2 * mm,
+                spaceAfter=1.8 * mm,
             )
         )
 
@@ -499,11 +711,11 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="SectionHeading",
                 fontName="Helvetica-Bold",
-                fontSize=10.5,
-                leading=13,
-                textColor=COLOR_PRIMARY,
-                spaceBefore=2.5 * mm,
-                spaceAfter=1.5 * mm,
+                fontSize=10.2,
+                leading=12.8,
+                textColor=self.color_primary,
+                spaceBefore=2.2 * mm,
+                spaceAfter=1.2 * mm,
                 keepWithNext=True,
             )
         )
@@ -512,11 +724,11 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="BodyJustified",
                 fontName="Helvetica",
-                fontSize=8.5,
-                leading=11.5,
+                fontSize=8.4,
+                leading=11.2,
                 textColor=COLOR_TEXT_DARK,
                 alignment=TA_JUSTIFY,
-                spaceAfter=1.5 * mm,
+                spaceAfter=1.2 * mm,
             )
         )
 
@@ -524,12 +736,12 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="BulletItem",
                 fontName="Helvetica",
-                fontSize=8.2,
-                leading=10.8,
+                fontSize=8.1,
+                leading=10.6,
                 textColor=COLOR_TEXT_DARK,
                 alignment=TA_JUSTIFY,
-                leftIndent=3.5 * mm,
-                spaceAfter=1.0 * mm,
+                leftIndent=3.2 * mm,
+                spaceAfter=0.8 * mm,
             )
         )
 
@@ -537,9 +749,9 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="ItemHeaderLeft",
                 fontName="Helvetica-Bold",
-                fontSize=8.8,
-                leading=11.5,
-                textColor=COLOR_PRIMARY,
+                fontSize=8.7,
+                leading=11.3,
+                textColor=self.color_primary,
             )
         )
 
@@ -547,9 +759,9 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="ItemHeaderRight",
                 fontName="Helvetica-Bold",
-                fontSize=8.3,
-                leading=11.5,
-                textColor=COLOR_SECONDARY,
+                fontSize=8.2,
+                leading=11.3,
+                textColor=self.color_secondary,
                 alignment=TA_RIGHT,
             )
         )
@@ -558,10 +770,10 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="ItemSubHeader",
                 fontName="Helvetica-Oblique",
-                fontSize=8.2,
-                leading=10.5,
+                fontSize=8.1,
+                leading=10.4,
                 textColor=COLOR_TEXT_MUTED,
-                spaceAfter=1 * mm,
+                spaceAfter=0.8 * mm,
             )
         )
 
@@ -569,8 +781,8 @@ class ResumeBuilder:
             ParagraphStyle(
                 name="TableCompactText",
                 fontName="Helvetica",
-                fontSize=8.2,
-                leading=10.5,
+                fontSize=8.1,
+                leading=10.3,
                 textColor=COLOR_TEXT_DARK,
             )
         )
@@ -580,9 +792,9 @@ class ResumeBuilder:
                 name="DeclarationText",
                 fontName="Helvetica-Oblique",
                 fontSize=7.8,
-                leading=10.2,
+                leading=10.0,
                 textColor=COLOR_TEXT_DARK,
-                spaceAfter=2 * mm,
+                spaceAfter=1.5 * mm,
             )
         )
 
@@ -596,15 +808,15 @@ class ResumeBuilder:
             HRFlowable(
                 width="100%",
                 thickness=1.0,
-                color=COLOR_SECONDARY,
-                spaceBefore=0.5 * mm,
-                spaceAfter=2.0 * mm,
+                color=self.color_secondary,
+                spaceBefore=0.4 * mm,
+                spaceAfter=1.8 * mm,
             ),
         ]
         return elements
 
     def build_pdf(self) -> str:
-        """Assembles and generates the PDF document."""
+        """Assembles and generates the strictly 2-page ATS PDF document."""
         out_file = Path(self.output_path).resolve()
         out_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -621,8 +833,8 @@ class ResumeBuilder:
             bottomMargin=13 * mm,
             title=f"Balaji Dilipsingh Rajput - {self.data.profile_type} Resume",
             author="Balaji Dilipsingh Rajput",
-            subject=f"{self.data.profile_type} Resume - Biotechnology, Pharmaceutical Quality Assurance & Control",
-            keywords="Balaji Rajput, Resume, Biotechnology, QA Officer, QC Chemist, IPQA, cGMP, GDP, GLP, Python, Vadodara",
+            subject=f"{self.data.profile_type} Resume",
+            keywords="Balaji Rajput, Resume, Tata Starbucks, Assistant Store Manager, Fresher, Vadodara, Customer Service, Coffee Craft",
         )
 
         story: List[Any] = []
@@ -642,25 +854,26 @@ class ResumeBuilder:
         )
         line2 = (
             f"LinkedIn: <a href='{c.linkedin_url}'><u>{c.linkedin_display}</u></a> &nbsp;&nbsp;|&nbsp;&nbsp; "
-            f"GitHub: <a href='{c.github_url}'><u>{c.github_display}</u></a>"
+            f"GitHub: <a href='{c.github_url}'><u>{c.github_display}</u></a> &nbsp;&nbsp;|&nbsp;&nbsp; "
+            f"Availability: <b>{c.availability}</b>"
         )
         story.append(Paragraph(f"{line1}<br/>{line2}", self.styles["HeaderContact"]))
         story.append(
             HRFlowable(
                 width="100%",
                 thickness=1.2,
-                color=COLOR_PRIMARY,
-                spaceBefore=1 * mm,
-                spaceAfter=2.5 * mm,
+                color=self.color_primary,
+                spaceBefore=0.8 * mm,
+                spaceAfter=2.0 * mm,
             )
         )
 
         # -------------------------------------------------------------------
-        # SUMMARY
+        # SUMMARY / CAREER OBJECTIVE
         # -------------------------------------------------------------------
         story.extend(self._create_section_heading(self.data.summary_heading))
         story.append(Paragraph(self.data.summary, self.styles["BodyJustified"]))
-        story.append(Spacer(1, 1 * mm))
+        story.append(Spacer(1, 0.8 * mm))
 
         # -------------------------------------------------------------------
         # CORE COMPETENCIES
@@ -687,13 +900,13 @@ class ResumeBuilder:
                     ("VALIGN", (0, 0), (-1, -1), "TOP"),
                     ("LEFTPADDING", (0, 0), (-1, -1), 0),
                     ("RIGHTPADDING", (0, 0), (-1, -1), 2 * mm),
-                    ("TOPPADDING", (0, 0), (-1, -1), 0.4 * mm),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0.4 * mm),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0.3 * mm),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0.3 * mm),
                 ]
             )
         )
         story.append(comp_table)
-        story.append(Spacer(1, 1.5 * mm))
+        story.append(Spacer(1, 1.2 * mm))
 
         # -------------------------------------------------------------------
         # EDUCATION
@@ -724,10 +937,10 @@ class ResumeBuilder:
             story.append(Paragraph(edu["institution"], self.styles["ItemSubHeader"]))
             story.append(Paragraph(f"<b>Honors / Performance:</b> {edu['score']}", self.styles["BulletItem"]))
             story.append(Paragraph(f"{edu['coursework']}", self.styles["BulletItem"]))
-            story.append(Spacer(1, 1.5 * mm))
+            story.append(Spacer(1, 1.2 * mm))
 
         # -------------------------------------------------------------------
-        # INDUSTRIAL TRAINING & INTERNSHIPS
+        # INDUSTRIAL TRAINING & PRACTICAL FLOOR EXPERIENCE
         # -------------------------------------------------------------------
         story.extend(self._create_section_heading(self.data.experience_heading))
         for exp in self.data.experience:
@@ -752,10 +965,10 @@ class ResumeBuilder:
                 )
             )
             story.append(exp_header)
-            story.append(Spacer(1, 0.4 * mm))
+            story.append(Spacer(1, 0.3 * mm))
             for b in exp["bullets"]:
                 story.append(Paragraph(f"• {b}", self.styles["BulletItem"]))
-            story.append(Spacer(1, 1.2 * mm))
+            story.append(Spacer(1, 1.0 * mm))
 
         # ===================================================================
         # PAGE BREAK TO PAGE 2 (STRICT 2-PAGE BUDGETING)
@@ -763,9 +976,10 @@ class ResumeBuilder:
         story.append(PageBreak())
 
         # -------------------------------------------------------------------
-        # PAGE 2: RESEARCH & ACADEMIC PROJECTS
+        # PAGE 2: PROJECTS / OPERATIONAL INITIATIVES
         # -------------------------------------------------------------------
-        story.extend(self._create_section_heading("Key Academic & Research Projects"))
+        projects_heading = getattr(self.data, "projects_heading", "Key Academic & Research Projects")
+        story.extend(self._create_section_heading(projects_heading))
         for proj in self.data.projects:
             story.append(
                 Paragraph(
@@ -775,22 +989,24 @@ class ResumeBuilder:
             )
             story.append(Spacer(1, 0.3 * mm))
             story.append(Paragraph(proj["details"], self.styles["BulletItem"]))
-            story.append(Spacer(1, 1.2 * mm))
+            story.append(Spacer(1, 1.0 * mm))
 
         # -------------------------------------------------------------------
-        # TECHNICAL & LABORATORY SKILLS
+        # TECHNICAL / OPERATIONAL SKILLS MATRIX
         # -------------------------------------------------------------------
-        story.extend(self._create_section_heading("Technical & Laboratory Skills"))
+        skills_heading = getattr(self.data, "skills_heading", "Technical & Laboratory Skills")
+        story.extend(self._create_section_heading(skills_heading))
         for category, skill_list in self.data.skills:
-            skill_text = f"<b><font color='{COLOR_PRIMARY.hexval()}'>{category}</font></b> {skill_list}"
+            skill_text = f"<b><font color='{self.color_primary.hexval()}'>{category}</font></b> {skill_list}"
             story.append(Paragraph(skill_text, self.styles["BulletItem"]))
-            story.append(Spacer(1, 0.5 * mm))
-        story.append(Spacer(1, 1.5 * mm))
+            story.append(Spacer(1, 0.4 * mm))
+        story.append(Spacer(1, 1.2 * mm))
 
         # -------------------------------------------------------------------
-        # PROFESSIONAL CERTIFICATIONS
+        # CERTIFICATIONS & SPECIALIZED TRAINING
         # -------------------------------------------------------------------
-        story.extend(self._create_section_heading("Certifications & Specialized Training"))
+        certifications_heading = getattr(self.data, "certifications_heading", "Certifications & Specialized Training")
+        story.extend(self._create_section_heading(certifications_heading))
         cert_rows = []
         c_max = max(len(self.data.certifications_left), len(self.data.certifications_right))
         for i in range(c_max):
@@ -810,36 +1026,37 @@ class ResumeBuilder:
                     ("VALIGN", (0, 0), (-1, -1), "TOP"),
                     ("LEFTPADDING", (0, 0), (-1, -1), 0),
                     ("RIGHTPADDING", (0, 0), (-1, -1), 2 * mm),
-                    ("TOPPADDING", (0, 0), (-1, -1), 0.4 * mm),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0.4 * mm),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0.3 * mm),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0.3 * mm),
                 ]
             )
         )
         story.append(cert_table)
-        story.append(Spacer(1, 1.5 * mm))
+        story.append(Spacer(1, 1.2 * mm))
 
         # -------------------------------------------------------------------
-        # KEY ACADEMIC ACHIEVEMENTS & AWARDS
+        # KEY HONORS & ACHIEVEMENTS
         # -------------------------------------------------------------------
-        story.extend(self._create_section_heading("Key Honors & Achievements"))
+        achievements_heading = getattr(self.data, "achievements_heading", "Key Honors & Achievements")
+        story.extend(self._create_section_heading(achievements_heading))
         for ach in self.data.achievements:
             story.append(Paragraph(ach, self.styles["BulletItem"]))
-        story.append(Spacer(1, 1.5 * mm))
+        story.append(Spacer(1, 1.2 * mm))
 
         # -------------------------------------------------------------------
-        # PERSONAL DETAILS & DECLARATION
+        # PERSONAL DOSSIER & FORMAL DECLARATION
         # -------------------------------------------------------------------
-        story.extend(self._create_section_heading("Personal Dossier & Declaration"))
+        story.extend(self._create_section_heading("Personal Dossier & Formal Declaration"))
         story.append(
             Paragraph(f"<b>Languages Known:</b> {self.data.languages}", self.styles["TableCompactText"])
         )
         story.append(Spacer(1, 0.4 * mm))
         story.append(
-            Paragraph(f"<b>Details:</b> {self.data.personal_details}", self.styles["TableCompactText"])
+            Paragraph(f"<b>Candidate Particulars:</b> {self.data.personal_details}", self.styles["TableCompactText"])
         )
-        story.append(Spacer(1, 1.2 * mm))
+        story.append(Spacer(1, 1.0 * mm))
         story.append(Paragraph(f"<i>{self.data.declaration}</i>", self.styles["DeclarationText"]))
-        story.append(Spacer(1, 1.5 * mm))
+        story.append(Spacer(1, 1.2 * mm))
 
         # Signature & Place Table
         sig_data = [
@@ -859,15 +1076,25 @@ class ResumeBuilder:
                     ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
                     ("LEFTPADDING", (0, 0), (-1, -1), 0),
                     ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-                    ("TOPPADDING", (0, 0), (-1, -1), 0.4 * mm),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0.4 * mm),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0.3 * mm),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0.3 * mm),
                 ]
             )
         )
         story.append(sig_table)
 
+        # Dynamic canvas subclass configured with current theme
+        primary = self.color_primary
+        secondary = self.color_secondary
+        subtitle_p2 = getattr(self.data, "subtitle_page2", "Curriculum Vitae")
+
+        class ConfiguredCanvas(BaseProfessionalCanvas):
+            color_primary = primary
+            color_secondary = secondary
+            header_subtitle = subtitle_p2
+
         # Build document with custom canvas
-        doc.build(story, canvasmaker=ProfessionalCanvas)
+        doc.build(story, canvasmaker=ConfiguredCanvas)
         return str(out_file)
 
 
@@ -880,9 +1107,9 @@ def parse_arguments() -> argparse.Namespace:
     )
     parser.add_argument(
         "--profile",
-        choices=["fresher", "experienced"],
+        choices=["fresher", "experienced", "starbucks", "starbucks_asm", "all"],
         default="fresher",
-        help="Resume profile to generate (default: fresher).",
+        help="Resume profile to generate: 'fresher', 'experienced', 'starbucks', or 'all' (default: fresher).",
     )
     parser.add_argument(
         "--output",
@@ -896,27 +1123,54 @@ def parse_arguments() -> argparse.Namespace:
 
 def build_resume(output_path: str | None = None, profile: str = "fresher") -> str:
     """Convenience function compatible with existing verification workflows."""
+    profile_key = profile.lower()
+    if profile_key in ["starbucks", "starbucks_asm"]:
+        default_filename = "Balaji_Rajput_Tata_Starbucks_ASM_Resume.pdf"
+        data = get_starbucks_data()
+    elif profile_key == "experienced":
+        default_filename = "Balaji_Rajput_Professional_Resume.pdf"
+        data = get_experienced_data()
+    else:
+        default_filename = "Balaji_Rajput_Fresher_Resume.pdf"
+        data = get_fresher_data()
+
     if output_path is None:
-        filename = (
-            "Balaji_Rajput_Fresher_Resume.pdf"
-            if profile == "fresher"
-            else "Balaji_Rajput_Professional_Resume.pdf"
-        )
         output_path = os.environ.get(
             "RESUME_OUTPUT_PATH",
-            str(Path(__file__).resolve().parent / "artifacts" / filename),
+            str(Path(__file__).resolve().parent / "artifacts" / default_filename),
         )
 
-    data = get_fresher_data() if profile == "fresher" else get_experienced_data()
     builder = ResumeBuilder(data=data, output_path=output_path)
     final_path = builder.build_pdf()
-    print(f"Resume generated successfully ({profile} profile): {final_path}")
+    print(f"Resume generated successfully ({data.profile_type}): {final_path}")
     return final_path
+
+
+def build_all_resumes(output_dir: str | Path | None = None) -> Dict[str, str]:
+    """Generates all resume profiles (Fresher, Experienced, and Tata Starbucks ASM)."""
+    base_dir = Path(output_dir) if output_dir else Path(__file__).resolve().parent / "artifacts"
+    base_dir.mkdir(parents=True, exist_ok=True)
+
+    results = {}
+    profiles = [
+        ("fresher", "Balaji_Rajput_Fresher_Resume.pdf"),
+        ("experienced", "Balaji_Rajput_Professional_Resume.pdf"),
+        ("starbucks", "Balaji_Rajput_Tata_Starbucks_ASM_Resume.pdf"),
+    ]
+    for prof_key, filename in profiles:
+        dest = str(base_dir / filename)
+        path = build_resume(output_path=dest, profile=prof_key)
+        results[prof_key] = path
+
+    return results
 
 
 def main() -> None:
     args = parse_arguments()
-    build_resume(output_path=args.output, profile=args.profile)
+    if args.profile == "all":
+        build_all_resumes(output_dir=args.output)
+    else:
+        build_resume(output_path=args.output, profile=args.profile)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balaji_Rajput_Tata_Starbucks_ASM_Resume</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --starbucks-green: #006241;
+      --starbucks-emerald: #00754A;
+      --text-dark: #1f2937;
+      --text-muted: #4b5563;
+      --border-color: #006241;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f3f4f6;
+      color: var(--text-dark);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* A4 Page Container (Strict 2-Page Budgeting) */
+    .resume-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 13mm 16mm;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    /* Section Headings */
+    .section-heading {
+      font-size: 10.2pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--starbucks-green);
+      border-bottom: 1.5px solid var(--starbucks-emerald);
+      padding-bottom: 2px;
+      margin-top: 12px;
+      margin-bottom: 6px;
+    }
+
+    .resume-name {
+      font-size: 20pt;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--starbucks-green);
+      line-height: 1.15;
+    }
+
+    .resume-subtitle {
+      font-size: 9.6pt;
+      font-weight: 700;
+      color: var(--starbucks-emerald);
+      margin-top: 2px;
+    }
+
+    .contact-bar {
+      font-size: 8.4pt;
+      color: #374151;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .body-text {
+      font-size: 8.8pt;
+      line-height: 1.42;
+      color: #1f2937;
+      text-align: justify;
+    }
+
+    .bullet-list {
+      list-style-type: disc;
+      padding-left: 16px;
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+
+    .bullet-list li {
+      font-size: 8.6pt;
+      line-height: 1.38;
+      color: #1f2937;
+      margin-bottom: 2px;
+    }
+
+    .competency-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px 14px;
+      font-size: 8.6pt;
+      line-height: 1.35;
+    }
+
+    .page-running-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--starbucks-emerald);
+      padding-bottom: 3px;
+      margin-bottom: 10px;
+      font-size: 7.8pt;
+      font-weight: 700;
+      color: var(--starbucks-green);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .page-running-footer {
+      position: absolute;
+      bottom: 8mm;
+      left: 16mm;
+      right: 16mm;
+      border-top: 0.8px solid #d1d5db;
+      padding-top: 3px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: #6b7280;
+    }
+
+    /* Editable Outline */
+    [contenteditable="true"]:hover {
+      outline: 1px dashed #006241;
+      background-color: #f0fdf4;
+      cursor: text;
+    }
+    [contenteditable="true"]:focus {
+      outline: 2px solid #006241;
+      background-color: #ffffff;
+    }
+
+    /* Print Exact Rules for ATS PDF */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      body {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .resume-page {
+        width: 210mm !important;
+        height: 297mm !important;
+        margin: 0 !important;
+        padding: 12mm 15mm !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      [contenteditable="true"]:hover,
+      [contenteditable="true"]:focus {
+        outline: none !important;
+        background: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Interactive Control Bar -->
+  <div class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg border-b border-slate-700">
+    <div class="max-w-5xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-full bg-[#006241] flex items-center justify-center font-bold text-white text-xs border border-emerald-400">
+          ★
+        </div>
+        <div>
+          <h1 class="text-xs font-bold tracking-wide flex items-center gap-2">
+            Tata Starbucks Assistant Store Manager (Fresher) ATS Resume
+            <span class="bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+              Strict 2-Page Executive Format
+            </span>
+          </h1>
+          <p class="text-[11px] text-slate-400">Balaji Dilipsingh Rajput • Vadodara, Gujarat • Click any text to live edit</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-md bg-[#006241] hover:bg-emerald-700 text-white text-xs font-bold shadow-md border border-emerald-400 transition flex items-center gap-1.5">
+          <span>📥</span> Print / Save as PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 1: IDENTITY, SUMMARY & CORE PILLARS   -->
+  <!-- ========================================== -->
+  <main class="resume-page" contenteditable="true" spellcheck="false">
+    
+    <!-- HEADER -->
+    <header class="text-center border-b-2 border-[#006241] pb-2.5">
+      <h1 class="resume-name">BALAJI DILIPSINGH RAJPUT</h1>
+      <p class="resume-subtitle">
+        Candidate for Assistant Store Manager (Fresher) &nbsp;|&nbsp; Tata Starbucks Private Limited, Vadodara
+      </p>
+      <p class="contact-bar">
+        <strong>Location:</strong> Vadodara, Gujarat 390010, India &nbsp;|&nbsp;
+        <strong>Phone:</strong> <a href="tel:+918780861044" class="underline">+91 87808 61044</a> &nbsp;|&nbsp;
+        <strong>Email:</strong> <a href="mailto:balajirajput966@gmail.com" class="underline">balajirajput966@gmail.com</a><br />
+        <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/balaji-rajput-483a86194" class="underline">linkedin.com/in/balaji-rajput-483a86194</a> &nbsp;|&nbsp;
+        <strong>GitHub:</strong> <a href="https://github.com/balajirajput96" class="underline">github.com/balajirajput96</a> &nbsp;|&nbsp;
+        <strong>Availability:</strong> Immediate Joiner (Full-Time / Rotational Shifts / Work from Office)
+      </p>
+    </header>
+
+    <!-- CAREER OBJECTIVE & STARBUCKS PHILOSOPHY ALIGNMENT -->
+    <section>
+      <h2 class="section-heading">Career Objective &amp; Tata Starbucks Philosophy Alignment</h2>
+      <p class="body-text">
+        Energetic, disciplined, and customer-focused <strong>Fresher</strong> seeking the position of <strong>Assistant Store Manager</strong> at <strong>Tata Starbucks Private Limited (Vadodara)</strong>. Deeply committed to the Starbucks Mission: <em>“To inspire and nurture the human spirit – one person, one cup and one neighbourhood at a time.”</em> Embracing the core philosophy that Starbucks is in the <em>“people business selling coffee”</em>, dedicated to cultivating an environment grounded in <strong>respect and dignity</strong>, unwavering integrity, honesty, and TATA Starbucks guiding principles. Eager to assist the Store Manager in running scheduled shifts, deploying partners, maintaining legendary customer service with a steadfast <em>“customer comes first”</em> attitude, sharing coffee knowledge, and upholding strict safety, cash management, and recipe presentation standards. Available immediately.
+      </p>
+    </section>
+
+    <!-- THE 4 EXACT CORE COMPETENCIES -->
+    <section>
+      <h2 class="section-heading">The 4 Core Starbucks Competencies &amp; Operational Pillars</h2>
+      <div class="competency-grid">
+        <div>• <strong>Achieving Results:</strong> Driving shift speed-of-service, sales targets &amp; cash accuracy</div>
+        <div>• <strong>Customer First Mindset:</strong> Delivering the warm, legendary "Third Place" experience</div>
+        <div>• <strong>Living Our Mission &amp; Values:</strong> Human connection, respect, dignity &amp; ethical culture</div>
+        <div>• <strong>Coffee Craft &amp; Stories:</strong> Passion for roast profiles, brewing methods &amp; coffee lore</div>
+        <div>• <strong>Helping Others Succeed:</strong> Respectful partner coaching, motivation &amp; morale support</div>
+        <div>• <strong>Safety &amp; Cash Integrity:</strong> Strict cash register policies, audits &amp; partner safety</div>
+        <div>• <strong>Working Together:</strong> Effective partner deployment, teamwork &amp; seamless shift flow</div>
+        <div>• <strong>Operational Hygiene:</strong> Cleanliness, recipe presentation standards &amp; FSSAI rules</div>
+      </div>
+    </section>
+
+    <!-- EDUCATION (EXCEEDS 12TH PASS REQUIREMENT) -->
+    <section>
+      <h2 class="section-heading">Education (Exceeds Minimum 12th Pass Requirement)</h2>
+      <div class="flex justify-between items-baseline">
+        <div>
+          <h3 class="font-bold text-[9.5pt] text-gray-900">
+            Diploma in Biotechnology (12th+ Advanced Technical Qualification)
+          </h3>
+          <p class="text-[8.8pt] text-gray-700">
+            Parul Institute of Technology &amp; Engineering, Gujarat Technological University (GTU), Vadodara
+          </p>
+        </div>
+        <div class="text-right">
+          <span class="font-semibold text-[8.8pt] text-emerald-800">2021 – 2025</span>
+          <p class="text-[8.4pt] text-emerald-700 font-semibold">CGPA: 6.7 / 10 | Dean's List</p>
+        </div>
+      </div>
+      <p class="text-[8.3pt] text-gray-600 mt-0.5">
+        <strong>Foundations:</strong> Process Optimization, Quality Control &amp; Hygiene Standards, Applied Science, Computer Tools &amp; Technical Communication. Proven academic discipline, regular attendance, and punctuality.
+      </p>
+    </section>
+
+    <!-- FOUNDATIONAL OPERATIONS & HYGIENE TRAINING -->
+    <section>
+      <h2 class="section-heading">Foundational Operations, Floor Coordination &amp; Hygiene Experience</h2>
+
+      <div class="mb-2">
+        <div class="flex justify-between items-baseline">
+          <h3 class="font-bold text-[9.2pt] text-gray-900">
+            Industrial Trainee — Floor Operations, Quality &amp; Sanitation <span class="font-normal text-gray-600">— Elysium Pharmaceuticals Ltd., Vadodara</span>
+          </h3>
+          <span class="font-semibold text-[8.4pt] text-gray-600">2 Months (Practical Training)</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Executed disciplined daily shift routines, adhering strictly to Standard Operating Procedures (SOPs), workplace safety, personal hygiene, and clean-as-you-go floor sanitation protocols.</li>
+          <li>Monitored shift records, area line clearances, and equipment readiness checklists with zero compliance discrepancies.</li>
+          <li>Coordinated collaboratively with shift peers to maintain rapid workflow, punctual shift handovers, and documentation accuracy.</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="flex justify-between items-baseline">
+          <h3 class="font-bold text-[9.2pt] text-gray-900">
+            Trainee Intern — SOP Adherence &amp; Process Coordination <span class="font-normal text-gray-600">— Gujarat Biotech Innovations, Vadodara</span>
+          </h3>
+          <span class="font-semibold text-[8.4pt] text-gray-600">2 Months (Practical Training)</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Maintained rigorous compliance with standard operating guidelines, cleanliness checklists, and task deadlines during scheduled floor hours.</li>
+          <li>Demonstrated dependable shift attendance, teamwork, active listening, and constructive peer support.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FOOTER PAGE 1 -->
+    <div class="page-running-footer">
+      <span>Balaji Dilipsingh Rajput &nbsp;•&nbsp; +91 8780861044 &nbsp;•&nbsp; balajirajput966@gmail.com</span>
+      <span>Page 1 of 2</span>
+    </div>
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- PAGE 2: COFFEE CRAFT, SKILLS & DECLARATION -->
+  <!-- ========================================== -->
+  <main class="resume-page page-break" contenteditable="true" spellcheck="false">
+    
+    <!-- RUNNING HEADER PAGE 2 -->
+    <div class="page-running-header">
+      <span>BALAJI DILIPSINGH RAJPUT</span>
+      <span>Assistant Store Manager (Fresher) | Tata Starbucks Private Limited, Vadodara</span>
+    </div>
+
+    <!-- STORE OPERATIONS, CUSTOMER EXPERIENCE & COFFEE CRAFT -->
+    <section>
+      <h2 class="section-heading" style="margin-top: 0;">Store Operations, Customer Experience &amp; Coffee Craft Initiatives</h2>
+
+      <div class="mb-2">
+        <h3 class="font-bold text-[9.1pt] text-gray-900">
+          Legendary Customer Service &amp; 'Customer Comes First' Focus <span class="text-gray-500 font-normal text-[8pt]">[Customer Engagement, Active Listening, Problem Resolution, Third Place Culture]</span>
+        </h3>
+        <p class="body-text mt-0.5">
+          Trained in prioritizing customer satisfaction through warm welcomes, active listening, and personalized engagement. Adept at anticipating customer preferences and resolving concerns with empathy and speed, ensuring each customer enjoys a welcoming and uplifting 'Third Place' Starbucks Experience.
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <h3 class="font-bold text-[9.1pt] text-gray-900">
+          Coffee Knowledge, Brewing Passion &amp; Beverage Presentation <span class="text-gray-500 font-normal text-[8pt]">[Coffee Knowledge, Recipe Standards, Beverage Craft, Ethical Sourcing, Storytelling]</span>
+        </h3>
+        <p class="body-text mt-0.5">
+          Enthusiastic student of coffee culture—from bean sourcing (Latin America, Africa, Asia-Pacific) and roast spectra (Blonde, Medium, Dark) to espresso extraction, milk steaming, and beverage customization. Committed to sharing coffee stories and strictly upholding recipe and presentation standards for handcrafted beverages and whole bean coffee.
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <h3 class="font-bold text-[9.1pt] text-gray-900">
+          Shift Deployment, Task Delegation &amp; Partner Support <span class="text-gray-500 font-normal text-[8pt]">[Partner Deployment, Task Delegation, Morale Recognition, Team Motivation]</span>
+        </h3>
+        <p class="body-text mt-0.5">
+          Practiced in dynamic team coordination: deploying partners across stations (Order Taking/POS, Bar/Brewing, Food Warming, Handoff, Lobby &amp; Cleanliness) based on floor demand. Anticipates rush periods, recognizes changes in partner morale, addresses individual motivation, and provides constructive feedback to the Store Manager.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="font-bold text-[9.1pt] text-gray-900">
+          Cash Management, Partner Safety &amp; Food Sanitation Standards <span class="text-gray-500 font-normal text-[8pt]">[Cash Management, Register Policy, Partner Safety, FSSAI Sanitation, Punctuality]</span>
+        </h3>
+        <p class="body-text mt-0.5">
+          Committed to 100% adherence to cash handling rules, cash register accuracy, shift drawer balancing, and cash drop policies. Champions partner safety, emergency protocols, and rigorous food safety/sanitation guidelines (FSSAI/QSR standards), maintaining impeccable store cleanliness, regular attendance, and shift punctuality.
+        </p>
+      </div>
+    </section>
+
+    <!-- CORE SKILLS & OPERATIONAL COMPETENCY MATRIX -->
+    <section>
+      <h2 class="section-heading">Core Skills &amp; Operational Competency Matrix</h2>
+      <div class="space-y-1 text-[8.4pt] leading-[1.38]">
+        <div><strong class="text-[#006241]">Store Operations &amp; Delegation:</strong> Assisting Store Manager during scheduled shifts, partner deployment &amp; task delegation, opening &amp; closing checklists, floor cleanliness, queue management, speed-of-service optimization, stock rotation (FIFO), and daily shift logbooks.</div>
+        <div><strong class="text-[#006241]">Customer Service &amp; Sales Achievement:</strong> Legendary customer service, 'Customer Comes First' philosophy, anticipating customer &amp; store needs, suggestive selling &amp; upselling, contributing proactively to daily/monthly store sales targets, customer loyalty recognition.</div>
+        <div><strong class="text-[#006241]">Coffee &amp; Beverage Quality Standards:</strong> Coffee roast profiles &amp; origin storytelling, handcrafted beverage recipe adherence, milk steaming &amp; presentation standards, food warming &amp; display merchandising, product freshness &amp; whole bean coffee knowledge.</div>
+        <div><strong class="text-[#006241]">Safety, Cash &amp; Sanitation Compliance:</strong> Cash register operation &amp; drawer reconciliation, cash management policies, partner safety &amp; security guidelines, health &amp; food sanitation standards (FSSAI/GMP), clean-as-you-go discipline, and regular shift punctuality.</div>
+        <div><strong class="text-[#006241]">Partner Coaching &amp; Teamwork:</strong> Respectful and encouraging coaching, recognizing partner morale shifts, addressing individual motivation, providing feedback to Store Manager, team recognition &amp; milestone celebrations, working together with integrity and honesty.</div>
+        <div><strong class="text-[#006241]">Computer &amp; Digital Tools:</strong> MS Office Suite (Excel, Word, PowerPoint), POS / Cash Register systems awareness, shift scheduling basics, Google Workspace, digital reporting, and quick adaptability to retail software.</div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS & HONORS -->
+    <section>
+      <h2 class="section-heading">Certifications, Accreditations &amp; Key Honors</h2>
+      <div class="competency-grid mb-1.5">
+        <div>• Digital Marketing &amp; Customer Basics – Google / ITI (2024)</div>
+        <div>• Food Safety &amp; Sanitation Orientation – Campus Workshop (2023)</div>
+        <div>• Quality, Hygiene &amp; GMP Standards – NPTEL / IIT Madras (2023)</div>
+        <div>• Technical Documentation &amp; SOP Systems – Elysium Training (2024)</div>
+        <div>• Workplace Communication – Parul University (2024)</div>
+        <div>• Retail POS &amp; Computer Data Management – GTU Certification (2022)</div>
+      </div>
+      <ul class="bullet-list">
+        <li><strong>Dean's List for Academic Excellence (2024–2025):</strong> Awarded by Parul Institute for exemplary attendance, discipline, and top performance.</li>
+        <li><strong>Best Project Award (2024):</strong> Parul Institute of Technology &amp; Engineering — Recognized for outstanding teamwork and achieving results.</li>
+        <li><strong>Shift Discipline Recognition:</strong> Commended during Elysium industrial training for meticulous sanitation checklist maintenance and perfect punctuality.</li>
+      </ul>
+    </section>
+
+    <!-- PERSONAL DOSSIER & FORMAL DECLARATION -->
+    <section>
+      <h2 class="section-heading">Personal Dossier &amp; Formal Declaration</h2>
+      <div class="grid grid-cols-2 gap-y-0.5 text-[8.3pt] text-gray-800 mb-1.5">
+        <div><strong>Languages Known:</strong> English (Fluent), Hindi (Fluent), Gujarati (Native)</div>
+        <div><strong>Date of Birth:</strong> 20 June 2001</div>
+        <div><strong>Marital Status:</strong> Single &nbsp;|&nbsp; <strong>Nationality:</strong> Indian</div>
+        <div><strong>Location:</strong> Vadodara, Gujarat (Immediate Joiner)</div>
+      </div>
+
+      <p class="text-[7.9pt] italic text-gray-600 border-t border-gray-200 pt-1.5">
+        I hereby solemnly declare that all particulars and statements furnished above are true, complete, and authentic to the best of my knowledge and belief.
+      </p>
+
+      <div class="flex justify-between items-end mt-2 text-[8.3pt]">
+        <div>
+          <p><strong>Place:</strong> Vadodara, Gujarat</p>
+          <p><strong>Date:</strong> ____________________</p>
+        </div>
+        <div class="text-right">
+          <p class="font-bold text-[#006241]">BALAJI DILIPSINGH RAJPUT</p>
+          <p class="text-gray-500 text-[7.8pt]">Candidate Signature</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER PAGE 2 -->
+    <div class="page-running-footer">
+      <span>Balaji Dilipsingh Rajput &nbsp;•&nbsp; +91 8780861044 &nbsp;•&nbsp; balajirajput966@gmail.com</span>
+      <span>Page 2 of 2</span>
+    </div>
+  </main>
+
+</body>
+</html>
